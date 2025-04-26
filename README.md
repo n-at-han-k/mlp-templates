@@ -43,7 +43,8 @@ For more advanced usage check the [`t_test.html`](https://github.com/jasonmoo/t.
 This software is released under the MIT license.
 
 ___
-[Horse ascii art](https://www.asciiart.eu/animals/horses)
-[Heavily inspired by t.js](https://github.com/jasonmoo/t.js/blob/master/t.js)
 
-[PHP version](https://github.com/ramon82/t.php) maintained by [@ramon82](https://github.com/ramon82)
+- [Horse ascii art](https://www.asciiart.eu/animals/horses)
+
+- [Heavily inspired by t.js](https://github.com/jasonmoo/t.js/blob/master/t.js)
+
