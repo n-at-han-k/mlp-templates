@@ -1,7 +1,26 @@
-# t.js
-## A tiny javascript templating framework in ~400 bytes gzipped
+# My Little Pony® Templates
 
-`t.js` is a simple solution to interpolating values in an html string for insertion into the DOM via `innerHTML`.
+```
+                            _(\_/)      -------------
+                          ,((((^`\     < Fuck React! >
+                         ((((  (6 \     -------------
+                       ,((((( ,    \    /
+   ,,,_              ,(((((  /"._  ,`, /
+  ((((\\ ,...       ,((((   /    `-.-'
+  )))  ;'    `"'"'""((((   (      
+ (((  /            (((      \
+  )) |                      |
+ ((  |        .       '     |
+ ))  \     _ '      `t   ,.')
+ (   |   y;- -,-""'"-.\   \/  
+ )   / ./  ) /         `\  \
+    |./   ( (           / /'
+    ||     \\          //'|
+jgs ||      \\       _//'||
+    ||       ))     |_/  ||
+    \_\     |_/          ||
+    `'"                  \_\
+```
 
 ### Features
  * Simple interpolation: `{{=value}}`
