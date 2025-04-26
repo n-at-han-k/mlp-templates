@@ -1,4 +1,5 @@
 #!/bin/bash
 
+yarn install
 ruby -run -e httpd . -p 5000
 
