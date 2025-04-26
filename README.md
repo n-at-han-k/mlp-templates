@@ -22,6 +22,13 @@
     `'"                  \_\
 ```
 
+## Run the demo
+
+```
+npm install -g yarn # install yarn, if not already installed
+yarn run dev
+```
+
 ### Features
  * Simple interpolation: `{{=value}}`
  * Scrubbed interpolation: `{{%unsafe_value}}`
