@@ -11,7 +11,7 @@
  (((  /            (((      \
   )) |                      |
  ((  |        .       '     |
- ))  \     _ '      `t   ,.')
+ ))  \     _ '      `t   ,.')  
  (   |   y;- -,-""'"-.\   \/  
  )   / ./  ) /         `\  \
     |./   ( (           / /'
@@ -43,7 +43,7 @@ For more advanced usage check the [`t_test.html`](https://github.com/jasonmoo/t.
 This software is released under the MIT license.
 
 ___
-
-[Coffeescript version](https://github.com/davidrekow/t.coffee) maintained by [@davidrekow](https://github.com/davidrekow)
+[Horse ascii art](https://www.asciiart.eu/animals/horses)
+[Heavily inspired by t.js](https://github.com/jasonmoo/t.js/blob/master/t.js)
 
 [PHP version](https://github.com/ramon82/t.php) maintained by [@ramon82](https://github.com/ramon82)
