@@ -14,7 +14,8 @@
           "@hotwired/stimulus": "http://localhost:5000/node_modules/@hotwired/stimulus/dist/stimulus.js",
           "@hotwired/stimulus-loading": "http://localhost:5000/assets/js/stimulus-loading.js",
           "controllers/application": "http://localhost:5000/assets/js/controllers/application.js",
-          "controllers": "http://localhost:5000/assets/js/controllers/index.js"
+          "controllers": "http://localhost:5000/assets/js/controllers/index.js",
+          "controllers/template_controller": "http://localhost:5000/assets/js/controllers/template_controller.js"
         }
       }
     </script>
@@ -26,7 +27,14 @@
     </script>
   </head>
   <body>
-    <h1>js-playground</h1>
+    <h1>mlp-templates</h1>
+
+    <div data-controller="template">
+      <template data-template-target="template">
+      </template>
+
+      <div data-template-target="view">
+      </div>
     </div>
   </body>
 </html>
