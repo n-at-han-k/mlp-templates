@@ -33,7 +33,16 @@
 
     <div data-controller="template">
       <template data-template-target="template">
-        testing 123
+        {{example}}
+          testing 123
+        {{/example}}
+
+        {{example}}
+          testing again
+        {{/example}}
+
+        {{=example}}
+        {{%example}}
       </template>
 
       <div data-template-target="view">

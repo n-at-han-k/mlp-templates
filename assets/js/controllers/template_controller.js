@@ -7,7 +7,9 @@ export default class extends Controller {
   ]
 
   connect() {
-    let template = this.templateTarget.innerHTML
-    console.log(template)
+    let inputString = this.templateTarget.innerHTML
+    let template = new Template(inputString)
+    let variables = {}
+    console.log(template.render(variables))
   }
 }
