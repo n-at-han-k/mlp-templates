@@ -77,7 +77,6 @@ export default class Template {
     let string = this.inputString
     string = string.replace(blockRegex, this.parseBlock)
     string = string.replace(valueRegex, this.parseValue)
-
     return string
   }
 }
