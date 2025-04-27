@@ -41,23 +41,23 @@
 	}
 
 	function render(fragment, vars) {
-		return fragment
-			.replace(blockregex, function(_, __, meta, key, inner, if_true, has_else, if_false) {
+		return fragment.replace(blockregex,
+      function(_, __, meta, key, inner, if_true, has_else, if_false) {
 
-				var val = get_value(vars,key), temp = "", i;
+				var val  = get_value(vars,key)
+        var temp = ""
+        var i
 
 				if (!val) {
 
-					// handle if not
 					if (meta == '!') {
 						return render(inner, vars);
-					}
-					// check for else
-					if (has_else) {
-						return render(if_false, vars);
-					}
+					} else if (has_else) {
+            return render(if_false, vars)
+          } else {
+					  return "";
+          }
 
-					return "";
 				}
 
 				// regular if
@@ -83,15 +83,15 @@
 					return temp;
 				}
 
-			})
-			.replace(valregex, function(_, meta, key) {
+		  }
+    ).replace(valregex, function(_, meta, key) {
 				var val = get_value(vars,key);
 
 				if (val || val === 0) {
 					return meta == '%' ? scrub(val) : val;
 				}
 				return "";
-			});
+		});
 	}
 
 	t.prototype.render = function (vars) {
