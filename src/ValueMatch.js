@@ -23,9 +23,8 @@ export default class ValueMatch {
     return this.tagModifier === SANITIZABLE
   }
 
-  // No idea why we're using an Option object here.
-  // There must be some sort of sanitization that the browser
-  // does that we're taking advantage of.
+  // By putting the string inside and Option object, we are able
+  // to strip <script> tags.
   #sanitize(inputString) {
     return this.#removeQuoteMarks(new Option(inputString).innerHTML)
   }
