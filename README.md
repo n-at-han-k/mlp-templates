@@ -22,6 +22,8 @@
     `'"                  \_\
 ```
 
+A class-based OO approach to a simple templating language with conditionals and loops.
+
 ## Run the demo
 
 ```
@@ -46,8 +48,6 @@ yarn run dev
 	document.body.innerHtml = template.render({name: "World!"});
 
 For more advanced usage check the [`t_test.html`](https://github.com/jasonmoo/t.js/blob/master/t_test.html).
-
-This software is released under the MIT license.
 
 ___
 
