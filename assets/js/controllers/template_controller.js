@@ -12,6 +12,7 @@ export default class extends Controller {
 
   render() {
     let variables = {
+      example: 'Example123!',
 			greeting: "Welcome!",
 			user: {
 				display_name: "Jason",

@@ -18,6 +18,10 @@
  * with the provided data.
  */
 
+const NEGATABLE = '!'
+const SANTIZABLE = '%'
+const ITERABLE = '@'
+const BLANK = ""
 
 // This matches 7 things:
 //   1. Whole tag (modifier + name)
@@ -51,36 +55,71 @@ const valueRegex = /\{\{([=%])(.+?)\}\}/g;
 export default class Template {
   constructor(inputString) {
     this.inputString = inputString
-  }
-
-  get blocks() {
-    let matches = [...this.inputString.matchAll(blockRegex)]
-    return matches.map(results => new BlockMatch(...results))
-  }
-
-  parseBlock(...args) {
-    let match = new BlockMatch(...args)
-    let string = match.render()
-    return string
-  }
-
-  parseValue(...args) {
-    let match = new ValueMatch(...args)
-    let string = match.render()
-    return string
+    this.parseBlock = this.parseBlock.bind(this)
+    this.parseValue = this.parseValue.bind(this)
   }
 
   // Pass in the data and get back the result
   // We first parse all the blocks, then parse all the values,
   // each time replacing, and then return the result
-  render(variables) {
+  render(variableData) {
+    this.variables = new Variables(variableData)
     let string = this.inputString
     string = string.replace(blockRegex, this.parseBlock)
     string = string.replace(valueRegex, this.parseValue)
     return string
   }
+
+  parseBlock(...args) {
+    let match = new BlockMatch(...args)
+    let string = match.render(this.variables)
+    return string
+  }
+
+  parseValue(...args) {
+    let match = new ValueMatch(...args)
+    let string = match.render(this.variables)
+    return string
+  }
+
 }
 
+// This class exists to handle traversal of the variables
+// passed into the template.
+class Variables {
+  #variables = {}
+
+  constructor(variables) {
+    this.#variables = variables
+  }
+
+  get toObj() {
+    return this.#variables
+  }
+
+  fetch(identifier) {
+    let result = this.#variables
+    let parts = identifier.split('.')
+
+    for (let i = 0; i < parts.length; i++) {
+      let part = parts[i]
+      try {
+        result = result[part]
+      } catch {
+        return undefined
+      }
+    }
+    return result
+  }
+
+  hasPart(part) {
+    return (part in this.#variables)
+  }
+}
+
+// Parses the following tags:
+//   {{=example}} // unsanitized
+//   {{%example}} // sanitized
 class ValueMatch {
   constructor(match, tagModifier, tagName) {
     this.match = match
@@ -88,8 +127,17 @@ class ValueMatch {
     this.tagName = tagName
   }
 
-  render() {
-    return 'fucking hell, man!'
+  render(variables) {
+    let value = variables.fetch(this.tagName)
+    if (this.sanitizable) {
+      return this.#sanitize(value)
+    } else {
+      return value
+    }
+  }
+
+  get sanitizable() {
+    return this.tagModifier === ITERABLE
   }
 
   // No idea why we're using an Option object here.
@@ -119,11 +167,57 @@ class BlockMatch {
     this.falseContent = falseContent
   }
 
-  hasFalseBlock() {
-    this.falseBlock ? true : false
+  render(variables) {
+    let result
+    let value = variables.fetch(this.tagName)
+    switch (this.tagModifier) {
+      case NEGATABLE:
+        result = this.#parseNegatable(value)
+        break
+
+      case ITERABLE:
+        result = this.#parseIterable(value, variables.toObj)
+        break
+
+      default:
+        result = this.#parseDefault(value)
+    }
+    return  result
   }
 
-  render() {
-    return 'fuck this shit, bro!'
+  #parseNegatable(value) {
+    if (!value) {
+      return this.trueContent
+    } else {
+      return BLANK
+    }
+  }
+
+  #parseIterable(values, variables = {}) {
+    let result = BLANK
+
+    // This works for both arrays and objects.
+    for (let key in values) {
+      let value = values[key]
+
+      let innerTemplate = new Template(this.content).render({
+        ...variables,
+        _key: key,
+        _val: value
+      })
+
+      result += innerTemplate
+    }
+    return result
+  }
+
+  #parseDefault(value) {
+    if (!!value) {
+      return this.trueContent
+    } else if (this.falseBlock) {
+      return this.falseContent
+    } else {
+      return BLANK
+    }
   }
 }
